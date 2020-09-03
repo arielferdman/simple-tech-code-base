@@ -1,3 +1,41 @@
+function st_preprocess_data(inp) {
+    let result = {};
+
+    for (let i = 0; i < inp['data'].length; i++) {
+        const element = inp['data'][i];
+        console.log(element['post_title']);
+        result[st_get_number_from_string(element['post_title'])] = element['id'];
+    }
+
+    return result
+}
+
+// input= {
+//     "success": true,
+//     "data": [
+//         {
+//             "id": 496,
+//             "post_title": "גוש 6413 - חוות דעת"
+//         },
+//         {
+//             "id": 450,
+//             "post_title": "גוש 6444 - חוות דעת"
+//         },
+//         {
+//             "id": 937,
+//             "post_title": "גוש 16730 - חוות דעת"
+//         },
+//         {
+//             "id": 206,
+//             "post_title": "גוש 6607 - חוות דעת"
+//         },
+//     ]
+// }
+
+
+
+#################################################################################
+
 
 function process_data(inp) {
     let result = {}
