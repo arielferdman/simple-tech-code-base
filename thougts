@@ -1,0 +1,118 @@
+let pre_inp = [
+    {'645': 'a'},
+    {'644': 'b'},
+    {'6441': 'c'},
+    {'6444': 'd'},
+    {'6575': 'e'},
+    {'6534': 'f'},
+    {'6578': 'g'}
+];
+
+// [l,d,v1,k1] -> [dcl],[d,v1,k1] -> [dcl],[dcd],[v1,k1] -> [dcl]
+// [d,v1,k1] -> [cd][v1,k1] -> [] -> [cd],[v1,k1] -> [cd]
+
+
+// this is the most simple conclusion
+// l,d,v1,k1 -> d,v1,k1
+// dcl -> ps
+// d,v1,k1 -> d,v1,k1
+// this is the most simple conclusion
+
+//
+
+// pre_inp = [{1,2}]
+// inp = {1,2}
+
+// 1
+// l,d,1,2
+// d,1,2
+
+// 2
+// fe,d,1,2 [fe] [cd] []
+// cd,1,2
+
+// 3
+// fe,fe,1,2 [fe, fe] [cd] []
+// cd,1,2
+
+// 4
+// fe,fe,1,2  [fe, fe] [cd] [ps]
+// ps,1,2
+
+// l - list
+// d - dict
+// fe - foreach
+// cd - create dict
+// ps - push
+
+
+// go on symbols [l,d,cd]
+
+// source[l,d,1,2]   dest[d,1,2]
+// init[cd]  iterate[fe, fe]  action[ps]
+
+// source[l,d,1,2] ->  iterate[fe, fep]
+// dest[d,1,2] ->  init[cd]
+
+// [l,d,k1,v1] -> [fe[d[k1,v1]]]
+// [d,k1,v1] -> [d[k1,v1]]
+
+// [l,d,k1,v1] -> [l[d[k1,v1]]] -> [fe[d[k1,v1]]]
+// [d,k1,v1] -> [d[k1,v1]] -> [cd[k1,]]
+
+[{1: 2}, {3: 4}]
+{}
+
+let inp = {
+    '645': 'a',
+    '644': 'b',
+    '6441': 'c',
+    '6444': 'd',
+    '6575': 'e',
+    '6534': 'f',
+    '6578': 'g'
+};
+
+function st_get_index(inp) {
+    let partial_key = ''
+    let index = {}
+    Object.entries(inp).forEach(entry => {
+        const [key, value] = entry;
+        for (let i = 2; i <= key.length; i++) {
+            partial_key = key.substring(0, i);
+            if (!(partial_key in index)) {
+                index[partial_key] = []
+            }
+            index[partial_key].push(value)
+        }
+    });
+
+    return index
+}
+
+// input
+// {
+//     '645': 'a',
+//     '644': 'b',
+//     '6441': 'c',
+//     '6444': 'd',
+//     '6575': 'e',
+//     '6534': 'f',
+//     '6578': 'g'
+// }
+
+// output
+// {
+//     '64': [ 'b', 'a', 'c', 'd' ], 
+//     '65': [ 'f', 'e', 'g' ], 
+//     '644': [ 'b', 'c', 'd' ], 
+//     '645': [ 'a' ], 
+//     '653': [ 'f' ], 
+//     '657': [ 'e', 'g' ], 
+//     '6441': [ 'c' ], 
+//     '6444': [ 'd' ], 
+//     '6534': [ 'f' ], 
+//     '6575': [ 'e' ], 
+//     '6578': [ 'g' ]
+// } 
+
